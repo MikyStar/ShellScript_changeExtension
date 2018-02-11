@@ -13,10 +13,14 @@ function renameFiles()
         if [ -f "$file" ];
         then
             nameOfFile="${file//$oldExtension/}"
-            echo "$nameOfFile"
-            # filesToChange+=($nameOfFile)
-            # let "count++"
-            mv "$file" "$diretory/$nameOfFile$newExtension"
+
+            # Check if the future file already exists
+            if [ -e "$diretory/$nameOfFile$newExtension" ] 
+            then
+                 echo "$diretory/$nameOfFile$newExtension already exists, original file hasn't been change"
+            else
+                mv "$file" "$diretory/$nameOfFile$newExtension"
+            fi
         fi
     done
 }
@@ -34,7 +38,7 @@ function checkArguments()
     newExtension=$3
 
     # Check if tere is 3 arguments
-    if [ "$#" -ne 3 ] ; # Given that I've put "" around my var, non need to use doublme [] 
+    if [ "$#" -ne 3 ] ; # Given that I've put "" around my var, no need to use doublme [] 
     then
         echo "Error : Too few arguments"
         printHelp
@@ -70,7 +74,6 @@ function checkArguments()
 directory=$1
 oldExtension=$2
 newExtension=$3
-filesToChange=()
 
 checkArguments $directory $oldExtension $newExtension
 renameFiles

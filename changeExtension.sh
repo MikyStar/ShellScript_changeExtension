@@ -4,23 +4,21 @@
 # Usage : changeExtension <path directory> <change this extension> <by this one>
 # Exemple = changeExtension . ".js" ".txt"
 
-function getAllFiles()
+function renameFiles()
 {
-    let "compteur = 0"
+    let "count = 0"
 
     for file in "$directory"/*"$oldExtension"
     do
         if [ -f "$file" ];
         then
-            let "compteur++"
-            echo "$file"
+            nameOfFile="${file//$oldExtension/}"
+            echo "$nameOfFile"
+            # filesToChange+=($nameOfFile)
+            # let "count++"
+            mv "$file" "$diretory/$nameOfFile$newExtension"
         fi
     done
-}
-
-function renameFiles()
-{
-    mv
 }
 
 function printHelp()
@@ -72,7 +70,9 @@ function checkArguments()
 directory=$1
 oldExtension=$2
 newExtension=$3
+filesToChange=()
 
 checkArguments $directory $oldExtension $newExtension
+renameFiles
 
 ############## Main's end ##############

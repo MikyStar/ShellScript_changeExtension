@@ -1,23 +1,8 @@
 #/bin/bash
 
-:'
-Description : Program to change file extension on a specific directory
-
-Usage : changeExtension <path directory> <change this extension> <by this one>
-
-Exemple = changeExtension . ".js" ".txt"
-'
-
-########### Main's beginning ###########
-
-$directory=$1
-$oldExtension=$2
-$newExtension=$3
-
-
-
-############## Main's end ##############
-
+# Description : Program to change file extension on a specific directory
+# Usage : changeExtension <path directory> <change this extension> <by this one>
+# Exemple = changeExtension . ".js" ".txt"
 
 function getAllFiles()
 {
@@ -40,26 +25,54 @@ function renameFiles()
 
 function printHelp()
 {
-    
+    echo "Syntax : changeExtension <path directory> <change this extension> <by this one>"
+    echo "Exemple = changeExtension . '.js' '.txt'"
 }
 
 function checkArguments()
 {
+    directory=$1
+    oldExtension=$2
+    newExtension=$3
 
-    # Check if first argument is direcrory  -> StackOverflow : https://goo.gl/3kPcpo
-    if [ ! -d $directory ] ;
+    # Check if tere is 3 arguments
+    if [ "$#" -ne 3 ] ; # Given that I've put "" around my var, non need to use doublme [] 
     then
-        echo "You need to pass à folder as the first argument"
-        printHelp()
-        exit 1
+        echo "Error : Too few arguments"
+        printHelp
+        exit
     fi
 
-    # Check if second and third
-    regex=".*"
-    if [ [ ! $oldExtension =~ $regex ] && [ ! $newExtension =~$regex ]] ;
+    # Check if first argument is directory  -> StackOverflow : https://goo.gl/3kPcpo
+    if [ ! -d "$directory" ] ;
     then
-        echo "You need to pass extension on the format '.[extension]'"
-        printHelp()
-        exit 1
+        echo "Error : You need to pass à folder as the first argument"
+        printHelp
+        exit 
+    fi
+
+    # Check if second and third are null
+    if [ -z "$oldExtension" ]  ;
+    then 
+        echo "Error : Extension empty in second position"
+        printHelp
+        exit
+    fi
+
+    if [ -z "$newExtension" ] ;
+    then 
+        echo "Error : Extension empty in third position"
+        printHelp
+        exit
     fi
 }
+
+########### Main's beginning ###########
+
+directory=$1
+oldExtension=$2
+newExtension=$3
+
+checkArguments $directory $oldExtension $newExtension
+
+############## Main's end ##############

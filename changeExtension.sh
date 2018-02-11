@@ -17,7 +17,7 @@ function renameFiles()
             # Check if the future file already exists
             if [ -e "$diretory/$nameOfFile$newExtension" ] 
             then
-                 echo "$diretory/$nameOfFile$newExtension already exists, original file hasn't been change"
+                echo -e "${redFontForEcho}$diretory/$nameOfFile$newExtension already exists, original file hasn't been changed${noColorForEcho}"
             else
                 mv "$file" "$diretory/$nameOfFile$newExtension"
             fi
@@ -27,8 +27,8 @@ function renameFiles()
 
 function printHelp()
 {
-    echo "Syntax : changeExtension <path directory> <change this extension> <by this one>"
-    echo "Exemple = changeExtension . '.js' '.txt'"
+    echo -e "${redFontForEcho}Syntax : changeExtension <path directory> <change this extension> <by this one>${noColorForEcho}"
+    echo -e "${redFontForEcho}Exemple = changeExtension . '.js' '.txt'${noColorForEcho}"
 }
 
 function checkArguments()
@@ -40,7 +40,7 @@ function checkArguments()
     # Check if tere is 3 arguments
     if [ "$#" -ne 3 ] ; # Given that I've put "" around my var, no need to use doublme [] 
     then
-        echo "Error : Too few arguments"
+        echo -e "${redFontForEcho}Error : Too few arguments${noColorForEcho}"
         printHelp
         exit
     fi
@@ -48,7 +48,7 @@ function checkArguments()
     # Check if first argument is directory  -> StackOverflow : https://goo.gl/3kPcpo
     if [ ! -d "$directory" ] ;
     then
-        echo "Error : You need to pass à folder as the first argument"
+        echo -e "${redFontForEcho}Error : You need to pass à folder as the first argument${noColorForEcho}"
         printHelp
         exit 
     fi
@@ -56,14 +56,14 @@ function checkArguments()
     # Check if second and third are null
     if [ -z "$oldExtension" ]  ;
     then 
-        echo "Error : Extension empty in second position"
+        echo -e "${redFontForEcho}Error : Extension empty in second position${noColorForEcho}"
         printHelp
         exit
     fi
 
     if [ -z "$newExtension" ] ;
     then 
-        echo "Error : Extension empty in third position"
+        echo -e "${redFontForEcho}Error : Extension empty in third position${noColorForEcho}"
         printHelp
         exit
     fi
@@ -71,10 +71,16 @@ function checkArguments()
 
 ########### Main's beginning ###########
 
+# Arguments
 directory=$1
 oldExtension=$2
 newExtension=$3
 
+# Color for echox
+redFontForEcho='\033[0;31m' # -> See : https://goo.gl/1UPaHU
+noColorForEcho='\033[0m'
+
+# Execution
 checkArguments $directory $oldExtension $newExtension
 renameFiles
 

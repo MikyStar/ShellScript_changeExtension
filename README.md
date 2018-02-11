@@ -15,3 +15,7 @@ changeExtension [path directory] [change this extension] [by this one]
 # Example
 
 Exemple = changeExtension . ".js" ".txt"
+
+# Warning
+
+`The path to the folder needs to be absolute`

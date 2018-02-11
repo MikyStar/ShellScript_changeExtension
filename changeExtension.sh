@@ -28,7 +28,7 @@ function renameFiles()
 function printHelp()
 {
     echo -e "${redFontForEcho}Syntax : changeExtension <path directory> <change this extension> <by this one>${noColorForEcho}"
-    echo -e "${redFontForEcho}Exemple = changeExtension . '.js' '.txt'${noColorForEcho}"
+    echo -e "${redFontForEcho}Exemple : changeExtension . '.js' '.txt'${noColorForEcho}"
 }
 
 function checkArguments()
@@ -76,7 +76,7 @@ directory=$1
 oldExtension=$2
 newExtension=$3
 
-# Color for echox
+# Customizing echo color
 redFontForEcho='\033[0;31m' # -> See : https://goo.gl/1UPaHU
 noColorForEcho='\033[0m'
 
